@@ -6,6 +6,7 @@
  */
 
 // @lc code=start
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -23,7 +24,21 @@
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = root;
+        List<Integer> res = new LinkedList<>();
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            current = stack.pop();
+            res.add(current.val);
+
+            current = current.right;
+        }
+        return res;
     }
 }
 // @lc code=end
