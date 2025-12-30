@@ -6,6 +6,7 @@
  */
 
 // @lc code=start
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -23,8 +24,29 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        
+        return build(preorder, inorder, Integer.MAX_VALUE);
     }
+
+    private int pre = 0, in = 0;
+    private TreeNode build(int[] preorder, int[] inorder, int stop) {
+        if (pre >= preorder.length) {
+            return null;
+        }
+
+        if (stop == inorder[in]) {
+            in++;
+            return null;
+        }
+
+        int root_val = preorder[pre];
+        pre++;
+        TreeNode root = new TreeNode(root_val);
+        root.left = build(preorder, inorder, root_val);
+        root.right = build(preorder, inorder, stop);
+        return root;
+    }
+
+  
 }
 // @lc code=end
 
