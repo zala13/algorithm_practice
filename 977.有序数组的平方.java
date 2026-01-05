@@ -9,34 +9,20 @@
 class Solution {
     public int[] sortedSquares(int[] nums) {
         int n = nums.length;
+        int left = 0, right = n - 1;
         int[] res = new int[n];
-        int i = 1;
-        for (; i < n; i++) {
-            if (nums[i] >= 0 && nums[i - 1] < 0) {
-                break;
-            }
-        }
-        int left = i - 1, right = i;
-        int idx = 0;
-        while (left >= 0 && right < n) {
-            int r = nums[right] * nums[right];
+        int idx = n - 1;
+        while (left <= right) {
             int l = nums[left] * nums[left];
-            if (l > r) {
+            int r = nums[right] * nums[right];
+            if (l < r) {
                 res[idx] = r;
-                right++;                
+                right--;
             } else {
                 res[idx] = l;
-                left--;
+                left++;
             }
-            idx++;
-        }
-        while (left-- >= 0) {
-            res[idx] = nums[left] * nums[left];
-            idx++;
-        }
-        while (right++ < n) {
-            res[idx] = nums[right] * nums[right];
-            idx++;
+            idx--;
         }
         return res;
     }
