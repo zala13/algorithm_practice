@@ -11,25 +11,22 @@ import java.util.List;
 
 class Solution {
     public boolean isValid(String s) {
-        List<Character> stk = new ArrayList<>();
+        Stack<Character> stk = new Stack<>();
         for (char c : s.toCharArray()) {
-            if (c == '(' || c == '[' || c == '{') {
-                stk.add(c);
-            } else {
-                if (stk.isEmpty()) {
-                    return false;
-                }
-                char top = stk.get(stk.size() - 1);
-                if ((top == '(' && c != ')') || 
-                    (top == '[' && c != ']') ||
-                    (top == '{' && c != '}')) {
-                    return false;
-                } else {
-                    stk.remove(stk.size() - 1);
-                }
+            if (c == '(') {
+                stk.push(')');
+            } else if (c == '[') {
+                stk.push(']');
+            } else if (c == '{') {
+                stk.push('}');
+            } else if (stk.isEmpty() || c != stk.pop()) {
+                return false;
             }
         }
-        return stk.isEmpty();
+        if (stk.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
 // @lc code=end
