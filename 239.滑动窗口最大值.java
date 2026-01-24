@@ -14,6 +14,7 @@ class Solution {
     class MonotonicQueue {
         LinkedList<Integer> q = new LinkedList<>();
         public void push(int n) {
+            // 队列尾部小于当前n的值全部剔除
             while (!q.isEmpty() && q.getLast() < n) {
                 q.pollLast();
             }
@@ -30,10 +31,10 @@ class Solution {
             }
         }
     }
+
     public int[] maxSlidingWindow(int[] nums, int k) {
         MonotonicQueue window = new MonotonicQueue();
         List<Integer> res = new ArrayList<>();
-
         for (int i = 0; i < nums.length; i++) {
             if (i < k - 1) {
                 window.push(nums[i]);

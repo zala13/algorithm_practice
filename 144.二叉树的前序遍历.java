@@ -1,11 +1,13 @@
 /*
- * @lc app=leetcode.cn id=94 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=144 lang=java
+ * @lcpr version=30307
  *
- * [94] 二叉树的中序遍历
+ * [144] 二叉树的前序遍历
  */
 
 // @lc code=start
+
+import java.util.List;
 
 /**
  * Definition for a binary tree node.
@@ -23,19 +25,19 @@
  * }
  */
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode root) {
         Stack<TreeNode> stk = new Stack<>();
         List<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
         }
-        while (!stk.isEmpty() || root != null) {
+        while (!stk.empty() || root != null) {
             while (root != null) {
                 stk.push(root);
+                res.add(root.val);
                 root = root.left;
             }
             root = stk.pop();
-            res.add(root.val);
             root = root.right;
         }
         return res;
