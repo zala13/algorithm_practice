@@ -24,13 +24,11 @@
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) {
-            return null;
+            return root;
         }
-        
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-        root.left = right;
-        root.right = left;
+        TreeNode temp = root.right;
+        root.right = invertTree(root.left);
+        root.left = invertTree(temp);
         return root;
     }
 }

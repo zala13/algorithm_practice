@@ -7,8 +7,6 @@
 
 // @lc code=start
 
-import java.util.LinkedList;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -26,26 +24,26 @@ import java.util.LinkedList;
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        if (root == null) {
-            return new LinkedList<>();
-        }
-        Deque<TreeNode> dq = new LinkedList<>();
         List<List<Integer>> res = new LinkedList<>();
-        dq.push(root);
-        while (!dq.isEmpty()) {
-            int sz = dq.size();
-            List<Integer> level = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if (root == null) {
+            return res;
+        }
+        q.add(root);
+        while (!q.isEmpty()) {
+            int sz = q.size();
+            List<Integer> path = new LinkedList<>();
             for (int i = 0; i < sz; i++) {
-                TreeNode node = dq.removeFirst();
-                level.add(node.val);
+                TreeNode node = q.poll();
+                path.add(node.val);
                 if (node.left != null) {
-                    dq.addLast(node.left);
+                    q.offer(node.left);
                 }
                 if (node.right != null) {
-                    dq.addLast(node.right);
+                    q.offer(node.right);
                 }
             }
-            res.add(level);
+            res.add(path);
         }
         return res;
     }
