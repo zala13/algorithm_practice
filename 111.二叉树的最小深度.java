@@ -1,12 +1,11 @@
 /*
- * @lc app=leetcode.cn id=104 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=111 lang=java
+ * @lcpr version=30307
  *
- * [104] 二叉树的最大深度
+ * [111] 二叉树的最小深度
  */
 
 // @lc code=start
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -23,7 +22,7 @@
  * }
  */
 class Solution {
-    public int maxDepth(TreeNode root) {
+    public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -36,6 +35,9 @@ class Solution {
             for (int i = 0; i < sz; i++) {
                 TreeNode node = q.poll();
                 System.out.print(node.val + " ");
+                if (node.left == null && node.right == null) {
+                    return res;
+                }
                 if (node.left != null) {
                     q.offer(node.left);
                 }
@@ -54,11 +56,11 @@ class Solution {
 
 /*
 // @lcpr case=start
-// [1,2,3,4,null,null,5]\n
+// [3,9,20,null,null,15,7]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [1,null,2]\n
+// [2,null,3,null,4,null,5,null,6]\n
 // @lcpr case=end
 
  */
