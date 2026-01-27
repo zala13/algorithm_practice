@@ -30,22 +30,29 @@ class Solution {
         if (root == null) {
             return new LinkedList<>();
         }
+        path.add(root.val);
         backtrack(root);
         return res;
     }
     List<String> res = new LinkedList<>();
     List<Integer> path = new LinkedList<>();
-    private void backtrack(TreeNode node) {        
-        if (node.left == null) {
-            res.add(new String(path.toString()));
-        } else {
+    private void backtrack(TreeNode node) {       
+        // 到达叶子节点
+        if (node.left == null && node.right == null) {
+            // 将 path 中的 Integer 转为 String，再用 "->" 连接
+            List<String> pathStr = new ArrayList<>();
+            for (Integer val : path) {
+                pathStr.add(String.valueOf(val));
+            }
+            res.add(String.join("->", pathStr));
+            return;
+        }
+        if (node.left != null) {
             path.add(node.left.val);
             backtrack(node.left);
             path.removeLast();
         }
-        if (node.right == null) {
-            res.add(new String(path.toString()));
-        } else {
+        if (node.right != null) {
             path.add(node.right.val);
             backtrack(node.right);
             path.removeLast();
