@@ -23,31 +23,29 @@
  */
 class Solution {
     public int findBottomLeftValue(TreeNode root) {
-        Queue<TreeNode> leftQueue = new LinkedList<>();
-        Queue<TreeNode> rightQueue = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
         int[] res = {0};
-        rightQueue.add(root);
+        q.add(root);
         Consumer<Queue<TreeNode>> processQueue = (queue) -> {
             int sz = queue.size();
+                boolean isLeft = true;
             for (int i = 0; i < sz; i++) {
                 TreeNode node = queue.poll();
-                boolean isLeft = true;
                 if (isLeft && node.left == null && node.right == null) {
                     res[0] = node.val;
                     isLeft = false;
                     continue;
                 }
                 if (node.left != null) {
-                    leftQueue.offer(node.left);
+                    q.offer(node.left);
                 }
                 if (node.right != null) {
-                    rightQueue.offer(node.right);
+                    q.offer(node.right);
                 }
             }
         };
-        while (!leftQueue.isEmpty() || !rightQueue.isEmpty()) {
-            processQueue.accept(leftQueue);
-            processQueue.accept(rightQueue);
+        while (!q.isEmpty()) {
+            processQueue.accept(q);
         }
         return res[0];
     }
