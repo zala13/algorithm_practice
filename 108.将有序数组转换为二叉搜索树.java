@@ -24,19 +24,19 @@
 class Solution {
     public TreeNode sortedArrayToBST(int[] nums) {
         int n = nums.length;
-        return trans(nums, 0, n - 1);
+        return build(nums, 0, n - 1); 
     }
 
-    private TreeNode trans(int[] nums, int left, int right) {
+    private TreeNode build(int[] nums, int left, int right) {
         if (left > right || left < 0 || right >= nums.length) {
             return null;
         }
-        int mid = left + (right - left) / 2;
-        TreeNode node = new TreeNode(nums[mid]);
-        node.left = trans(nums, left, mid - 1);
-        node.right = trans(nums, mid + 1, right);
+        TreeNode node = new TreeNode(nums[(left + right) / 2]);
+        node.left = build(nums, left, (left + right) / 2 - 1);
+        node.right = build(nums, (left + right) / 2 + 1, right);
         return node;
     }
+
 }
 // @lc code=end
 
