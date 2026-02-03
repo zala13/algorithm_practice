@@ -23,23 +23,20 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return isValid(root.left, root, null) 
-                && isValid(root.right, null, root);
+        return helper(root, null, null);
     }
-    private boolean isValid(TreeNode root, TreeNode maxNode, TreeNode minNode) {
-        if (root == null) {
+
+    private boolean helper(TreeNode node, TreeNode max, TreeNode min) {
+        if (node == null) {
             return true;
         }
-        if (maxNode != null && root.val >= maxNode.val) {
+        if (max != null && node.val >= max.val) {
             return false;
         }
-        if (minNode != null && root.val <= minNode.val) {
+        if (min != null && node.val <= min.val) {
             return false;
         }
-        boolean isLeft = isValid(root.left, root, minNode);
-        boolean isRight = isValid(root.right, maxNode, root);
-
-        return isLeft && isRight;
+        return helper(node.left, node, min) && helper(node.right, max, node);
     }
 }
 // @lc code=end

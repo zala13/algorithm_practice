@@ -16,27 +16,30 @@
  * }
  */
 class Solution {
-    private TreeNode parent = new TreeNode();
-    private boolean flag = false;
+    TreeNode res = null;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        parent = root;
-        backtrack(root, p, q);
-        return parent;
+        if (root == null) {
+            return null;
+        }
+        helper(root, p, q);
+        return res;
     }
 
-    private int backtrack(TreeNode root, TreeNode p, TreeNode q) {
-        if (flag || root == null) {
+    private int helper(TreeNode node, TreeNode p, TreeNode q) {
+        if (res != null) {
+            return 3;
+        }
+        if (node == null) {
             return 0;
         }
-        int curr = (root == q || root == p) ? 1 : 0;
-        int left = backtrack(root.left, p, q);
-        int right = backtrack(root.right, p, q);
-        int end = curr + left + right;
-        if (!flag && end >= 2) {
-            flag = true;
-            parent = root;
+
+        int left = helper(node.left, p, q);
+        int right = helper(node.right, p, q);
+        int flag = left + right + (node == p || node == q ? 1 : 0);
+        if (flag == 2 && res == null) {
+            res = node;
         }
-        return end;
+        return Math.min(flag, 2);
     }
 }
 // @lc code=end

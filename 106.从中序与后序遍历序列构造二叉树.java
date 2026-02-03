@@ -22,33 +22,26 @@
  * }
  */
 class Solution {
-    int post;
-    int in;
+    int post, in;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         post = postorder.length - 1;
         in = inorder.length - 1;
-        return build(postorder, inorder, Integer.MIN_VALUE);
+        return build(inorder, postorder, Integer.MAX_VALUE);
     }
 
-    private TreeNode build(int[] postorder, int[] inorder, int stop) {
-        if (post < 0) return null;
-
-        // 如果中序遍历当前值等于 stop，说明这个子树构建完了，返回 null
+    private TreeNode build(int[] inorder, int[] postorder, int stop) {
+        if (post < 0) {
+            return null;
+        }
         if (inorder[in] == stop) {
             in--;
             return null;
         }
-
-        // 创建当前根节点（后序遍历当前值）
-        TreeNode root = new TreeNode(postorder[post--]);
-
-        // 先构建右子树，以当前根节点值为“右子树的 stop”
-        root.right = build(postorder, inorder, root.val);
-
-        // 再构建左子树，stop 不变（因为左子树的边界还是原来的 stop）
-        root.left = build(postorder, inorder, stop);
-
-        return root;
+        TreeNode node = new TreeNode(postorder[post]);
+        post--;
+        node.right = build(inorder, postorder, node.val);
+        node.left = build(inorder, postorder, stop);
+        return node;
     }
 }
 // @lc code=end
