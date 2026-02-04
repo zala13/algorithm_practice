@@ -7,32 +7,30 @@
 
 // @lc code=start
 class Solution {
-    String[] keyToChar = new String[] {
-            "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+    String[] key = {
+        "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
     };
-    List<String> res = new ArrayList<>();
+    List<String> res = new LinkedList<>();
+    StringBuilder path = new StringBuilder();
     public List<String> letterCombinations(String digits) {
-        if (digits == null) {
-            return null;
-        }
-        
-        trackback(digits, 0, new StringBuilder());
+        backtrack(digits, 0);
         return res;
     }
 
-    private void trackback(String digits, int index, StringBuilder path) {
-        if (index == digits.length()) {
-            res.add(path.toString());
+    private void backtrack(String digits, int index) {
+        if (index == digits.length() && path.length() == digits.length()) {
+            res.add(new String(path.toString()));
             return;
         }
 
-        String choice = keyToChar[digits.charAt(index) - '0'];
-        for (int j = 0; j < choice.length(); j++) {
-            path.append(choice.charAt(j));
-            trackback(digits, index + 1, path);
-            path.deleteCharAt(path.length() - 1);
+        for (int i = index; i < digits.length(); i++) {
+            String choices = key[digits.charAt(i) - '0'];
+            for (int j = 0; j < choices.length(); j++) {
+                path.append(choices.charAt(j));
+                backtrack(digits, i + 1);
+                path.deleteCharAt(path.length() - 1);
+            }
         }
-        
     }
 }
 // @lc code=end
