@@ -6,35 +6,14 @@
  */
 
 // @lc code=start
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
-    List<Integer> track = new LinkedList<>();
+    private List<List<Integer>> res = new LinkedList<>();
+    private List<Integer> res = new LinkedList<>();
+    private boolean[] used;
     public List<List<Integer>> permute(int[] nums) {
-        boolean[] used = new boolean[nums.length];
-        backtrack(nums, used);
+        used = new boolean[nums.length];
+        backtrack(nums, 0);
         return res;
-    }
-
-    private void backtrack(int[] nums, boolean[] used) {
-        if (track.size() == nums.length) {
-            res.add(new LinkedList(track));
-            return;
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (used[i]) {
-                continue;
-            }
-            used[i] = true;
-            track.add(nums[i]);
-            backtrack(nums, used);
-            track.remove(track.size() - 1);
-            used[i] = false;
-        }
     }
 }
 // @lc code=end

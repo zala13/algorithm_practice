@@ -1,16 +1,19 @@
 /*
- * @lc app=leetcode.cn id=78 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=90 lang=java
+ * @lcpr version=30307
  *
- * [78] 子集
+ * [90] 子集 II
  */
 
 // @lc code=start
 
+import java.util.List;
+
 class Solution {
     List<List<Integer>> res = new LinkedList<>();
     List<Integer> path = new LinkedList<>();
-    public List<List<Integer>> subsets(int[] nums) {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
         backtrack(nums, 0);
         return res;
     }
@@ -19,14 +22,16 @@ class Solution {
         if (index > nums.length) {
             return;
         }
-        res.add(new LinkedList<>(path));
+        res.add(new LinkedList(path));
         for (int i = index; i < nums.length; i++) {
+            if (i > index && nums[i] == nums[i - 1]) {
+                continue;
+            }
             path.add(nums[i]);
             backtrack(nums, i + 1);
             path.removeLast();
         }
     }
-
 }
 // @lc code=end
 
@@ -34,7 +39,7 @@ class Solution {
 
 /*
 // @lcpr case=start
-// [1,2,3]\n
+// [1,2,2]\n
 // @lcpr case=end
 
 // @lcpr case=start
