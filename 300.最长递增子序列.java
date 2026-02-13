@@ -12,27 +12,18 @@ import java.util.List;
 
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int len = 0, n = nums.length;
-        List<Integer> min = new LinkedList<>();
-        min.add(nums[0]);
-        for (int i = 1; i < n; i++) {
-            int num = nums[i];
-            int sz = min.size();
-            for (int j = 0; j < sz; j++) {
-                if (j == min.size() - 1 && min.get(j) < num) {
-                    min.add(num);
-                    break;
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        int res = 1;
+        for (int i =0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
-                if (num <= min.get(j)) {
-                    min.set(j, num);
-                    break;
-                }
+                res = Math.max(res, dp[i]);
             }
         }
-        for (int num : min) {
-            System.out.print(num + " ");
-        }
-        return min.size();
+        return res;
     }
 }
 // @lc code=end
