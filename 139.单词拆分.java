@@ -8,33 +8,35 @@
 // @lc code=start
 class Solution {
     private boolean flag = false;
-    private boolean[] visited;
+    private int[] memo;
     public boolean wordBreak(String s, List<String> wordDict) {
-        visited = new boolean[s.length()];
-        backtrack(s, 0, wordDict);
-        return flag;
+        memo = new int[s.length()];
+        Arrays.fill(memo, -1);
+        return dp(s, wordDict, 0);
     }
 
-    private void backtrack(String s, int idx, List<String> wordDict) {
-        if (idx == s.length()) {
-            flag = true;
-            return;
-        }
+    private boolean dp(String s, List<String> wordDict, int index) {
         if (flag) {
-            return;
+            return true;
         }
-        if (visited[idx]) {
-            return;
+        if (!flag && index == s.length()) {
+            flag = true;
+            return true;
         }
-        visited[idx] = true;
+        if (memo[index] == 1) {
+            return true;
+        } else if (memo[index] == 0) {
+            return false;
+        }
         for (String word : wordDict) {
-            int len = word.length();
-            if (idx + len <= s.length() && s.substring(idx, idx + len).equals(word)) {
-                
-                backtrack(s, idx + len, wordDict);
+            if (index + word.length() > s.length()) {
+                continue;
+            }
+            if (s.substring(index, index + word.length()).equals(word)) {
+                memo[index] = dp(s, wordDict, index + word.length()) == true ? 1 : 0;
             }
         }
-        
+        return memo[index] == 1;
     }
 }
 // @lc code=end
