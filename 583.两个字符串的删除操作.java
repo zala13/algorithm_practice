@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=72 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=583 lang=java
+ * @lcpr version=30400
  *
- * [72] 编辑距离
+ * [583] 两个字符串的删除操作
  */
 
 // @lc code=start
@@ -20,20 +20,15 @@ class Solution {
             for (int j = 1; j <= n; j++) {
                 if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1];
-                    continue;
+                } else {
+                    dp[i][j] = Math.min(
+                        dp[i][j - 1] + 1,
+                        dp[i - 1][j] + 1
+                    );
                 }
-                dp[i][j] = min(
-                    dp[i - 1][j],
-                    dp[i][j - 1],
-                    dp[i - 1][j - 1]
-                ) + 1;
             }
         }
         return dp[m][n];
-    }
-
-    private int min(int a, int b, int c) {
-        return Math.min(a, Math.min(b, c));
     }
 }
 // @lc code=end
@@ -42,11 +37,11 @@ class Solution {
 
 /*
 // @lcpr case=start
-// "horse"\n"ros"\n
+// "sea"\n"eat"\n
 // @lcpr case=end
 
 // @lcpr case=start
-// "intention"\n"execution"\n
+// "leetcode"\n"etco"\n
 // @lcpr case=end
 
  */

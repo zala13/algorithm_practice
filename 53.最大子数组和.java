@@ -8,20 +8,19 @@
 // @lc code=start
 class Solution {
     public int maxSubArray(int[] nums) {
-        int curSum = 0;
-        int maxSum = nums[0];
-        int left = 0, right = 0;
         int n = nums.length;
-        while(right < n) {
-            curSum += nums[right];
+        int left = 0, right = 0;
+        int sum = 0, max = Integer.MIN_VALUE;
+        while (right < n) {
+            sum += nums[right];
             right++;
-            maxSum = Math.max(maxSum, curSum);
-            while (curSum < 0 && left < right) {
-                curSum -= nums[left];
+            max=  Math.max(max, sum);
+            while (sum < 0 && left < right) {
+                sum -= nums[left];
                 left++;
             }
         }
-        return maxSum;
+        return max;
     }
 }
 // @lc code=end

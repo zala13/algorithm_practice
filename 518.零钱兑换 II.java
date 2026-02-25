@@ -1,31 +1,28 @@
 /*
- * @lc app=leetcode.cn id=322 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=518 lang=java
+ * @lcpr version=30400
  *
- * [322] 零钱兑换
+ * [518] 零钱兑换 II
  */
 
 // @lc code=start
 class Solution {
-    public int coinChange(int[] coins, int amount) {
+    public int change(int amount, int[] coins) {
         int n = coins.length;
         int[][] dp = new int[amount + 1][n + 1];
-        for (int j = 0; j <= n; j++) {
-            dp[0][j] = 0;
-        }
-        for (int i = 0; i <= amount; i++) {
-            dp[i][0] = Integer.MAX_VALUE - 1;
+        for (int i = 0; i <= n; i++) {
+            dp[0][i] = 1;
         }
         for (int i = 1; i <= amount; i++) {
             for (int j = 1; j <= n; j++) {
                 if (i - coins[j - 1] >= 0) {
-                    dp[i][j] = Math.min(dp[i][j - 1], dp[i - coins[j - 1]][j] + 1);
+                    dp[i][j] = dp[i][j - 1] + dp[i - coins[j - 1]][j];
                 } else {
                     dp[i][j] = dp[i][j - 1];
                 }
             }
         }
-        return dp[amount][n] == Integer.MAX_VALUE - 1 ? -1 : dp[amount][n];
+        return dp[amount][n];
     }
 }
 // @lc code=end
@@ -34,15 +31,15 @@ class Solution {
 
 /*
 // @lcpr case=start
-// [1,2,5]\n11\n
+// 5\n[1,2,5]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [2]\n3\n
+// 3\n[2]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [1]\n0\n
+// 10\n[10]\n
 // @lcpr case=end
 
  */
