@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=121 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=122 lang=java
+ * @lcpr version=30400
  *
- * [121] 买卖股票的最佳时机
+ * [122] 买卖股票的最佳时机 II
  */
 
 // @lc code=start
@@ -19,7 +19,7 @@ class Solution {
                 continue;
             }
             dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i - 1]);
-            dp[i][1] = Math.max(dp[i - 1][1], -prices[i - 1]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i - 1]);
         }
         return dp[n][0];
     }
@@ -31,6 +31,10 @@ class Solution {
 /*
 // @lcpr case=start
 // [7,1,5,3,6,4]\n
+// @lcpr case=end
+
+// @lcpr case=start
+// [1,2,3,4,5]\n
 // @lcpr case=end
 
 // @lcpr case=start
