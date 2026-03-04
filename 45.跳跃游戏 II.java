@@ -8,33 +8,21 @@
 // @lc code=start
 class Solution {
     public int jump(int[] nums) {
-        if (nums.length == 1) {
-            // return true;
+        int n = nums.length;
+        if (n == 1) {
             return 0;
         }
-        if (nums[0] >= nums.length) {
-            return 1;
-        }
-        int maxDist = 0;
+        int end = 0;
+        int maxPos = nums[0];
         int step = 0;
-        int nextDist = 0;
-        for (int i = 0; i < nums.length; i++) {
-            int curDist = nums[i] + i;
-            maxDist = Math.max(maxDist, curDist);
-            if (i == nextDist) {
-                if (nextDist == maxDist && maxDist < nums.length - 1) {
-                    // return false;
-                    return -1;
-                }
-                nextDist = maxDist;
+        for (int i = 0; i <= n - 2; i++) {
+            maxPos = Math.max(maxPos, i + nums[i]);
+            if (end == i) {
                 step++;
-                if (nextDist >= nums.length - 1) {
-                    return step;
-                }
+                end = maxPos;
             }
         }
-        // return true;
-        return -1;
+        return step;
     }
 }
 // @lc code=end
