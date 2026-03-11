@@ -6,22 +6,21 @@
  */
 
 // @lc code=start
-
-import java.util.Map;
-import java.util.Set;
-
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> need = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int num = nums[i];
-            if (need.containsKey(target - num)) {
-                return new int[]{i, need.get(target - num)};
-            } else {
-                need.put(nums[i], i);
+        int n = nums.length;
+        int[] result = new int[2];
+        Map<Integer, Integer> valueToIndex = new HashMap();
+        for (int i = 0; i < n; i++) {
+            int num = target - nums[i];
+            if (valueToIndex.containsKey(num)) {
+                result[0] = i;
+                result[1] = valueToIndex.get(num);
+                return result;
             }
+            valueToIndex.put(nums[i], i);
         }
-        return new int[]{-1, -1};
+        return result;
     }
 }
 // @lc code=end
