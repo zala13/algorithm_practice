@@ -6,23 +6,26 @@
  */
 
 // @lc code=start
+
+import java.util.LinkedList;
+import java.util.List;
+
 class Solution {
     List<List<Integer>> res = new LinkedList<>();
     List<Integer> track = new LinkedList<>();
     public List<List<Integer>> combine(int n, int k) {
-        trackback(n, k, 1);
+        backtrack(n, 1, k);
         return res;
     }
 
-    private void trackback(int n, int k, int index) {
+    private void backtrack(int n, int index, int k) {
         if (track.size() == k) {
-            System.out.println(track);
-            res.add(new LinkedList(track));
+            res.add(new LinkedList<>(track));
             return;
         }
         for (int i = index; i <= n; i++) {
             track.add(i);
-            trackback(n, k, i + 1);
+            backtrack(n, i + 1, k);
             track.remove(track.size() - 1);
         }
     }

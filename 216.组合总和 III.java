@@ -8,31 +8,29 @@
 // @lc code=start
 class Solution {
     private List<List<Integer>> res = new LinkedList<>();
-    private List<Integer> track = new LinkedList<>();
-    private int sum = 0;
+    private List<Integer> path = new LinkedList<>();
+    int sum = 0;
     public List<List<Integer>> combinationSum3(int k, int n) {
         backtrack(k, n, 1);
         return res;
     }
 
     private void backtrack(int k, int n, int index) {
-        if (sum > n || track.size() > k) {
+        if (sum > n || index > 10) {
             return;
         }
-        if (sum == n && track.size() == k) {
-            res.add(new LinkedList(track));
+        if (sum == n && path.size() == k) {
+            res.add(new LinkedList<>(path));
             return;
         }
-
         for (int i = index; i <= 9; i++) {
             sum += i;
-            track.add(i);
+            path.add(i);
             backtrack(k, n, i + 1);
-            track.remove(track.size() - 1);
+            path.remove(path.size() - 1);
             sum -= i;
         }
     }
-
 }
 // @lc code=end
 

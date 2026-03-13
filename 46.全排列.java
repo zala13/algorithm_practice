@@ -8,12 +8,29 @@
 // @lc code=start
 class Solution {
     private List<List<Integer>> res = new LinkedList<>();
-    private List<Integer> res = new LinkedList<>();
-    private boolean[] used;
+    private List<Integer> path = new LinkedList<>();
+    boolean[] used;
     public List<List<Integer>> permute(int[] nums) {
         used = new boolean[nums.length];
-        backtrack(nums, 0);
+        backtrack(nums);
         return res;
+    }
+    private void backtrack(int[] nums) {
+        if (path.size() == nums.length) {
+            res.add(new LinkedList<>(path));
+            return;
+        }
+        
+        for (int i = 0; i < nums.length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            used[i] = true;
+            path.add(nums[i]);
+            backtrack(nums);
+            path.remove(path.size() - 1);
+            used[i] = false;
+        }
     }
 }
 // @lc code=end

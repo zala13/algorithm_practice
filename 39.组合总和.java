@@ -7,29 +7,32 @@
 
 // @lc code=start
 
+import java.util.LinkedList;
+import java.util.List;
+
 class Solution {
     List<List<Integer>> res = new LinkedList<>();
     List<Integer> path = new LinkedList<>();
     int sum = 0;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         backtrack(candidates, target, 0);
-        return res;        
+        return res;
     }
 
     private void backtrack(int[] candidates, int target, int index) {
-        if (sum > target || index >= candidates.length) {
+        if (index > candidates.length || sum > target) {
             return;
         }
         if (sum == target) {
-            res.add(new LinkedList(path));
+            res.add(new LinkedList<>(path));
             return;
         }
         for (int i = index; i < candidates.length; i++) {
             sum += candidates[i];
             path.add(candidates[i]);
             backtrack(candidates, target, i);
-            sum -= candidates[i];
             path.remove(path.size() - 1);
+            sum -= candidates[i];
         }
     }
 }

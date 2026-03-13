@@ -8,34 +8,22 @@
 // @lc code=start
 class Solution {
     public int numIslands(char[][] grid) {
-        int m = grid.length, n = grid[0].length;
-        int res = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == '1') {
+        int sum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
                     flood(grid, i, j);
-                    res++;
+                    sum++;
                 }
             }
         }
-        return res;
+        return sum;
     }
 
-    private void flood(char[][] grid, int i, int j) {
-        int m = grid.length, n = grid[0].length;
-        if (i < 0 || i >= m || j < 0 || j >= n) {
+    private void flood(int[][] grid, int x, int y) {
+        if (x >= grid.length || y >= grid[0].length) {
             return;
         }
-        if (grid[i][j] == '1') {
-            grid[i][j] = '0';
-        } else {
-            return;
-        }
-        flood(grid, i + 1, j);
-        flood(grid, i - 1, j);
-        flood(grid, i, j + 1);
-        flood(grid, i, j - 1);
-        
     }
 }
 // @lc code=end

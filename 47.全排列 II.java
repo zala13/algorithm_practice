@@ -6,32 +6,31 @@
  */
 
 // @lc code=start
-
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    List<List<Integer>> res = new ArrayList<>();
-    List<Integer> path = new ArrayList<>();
+    private List<List<Integer>> res = new LinkedList<>();
+    private List<Integer> path = new LinkedList<>();
     boolean[] used;
     public List<List<Integer>> permuteUnique(int[] nums) {
         used = new boolean[nums.length];
-        Arrays.sort(nums);
-        backtrack(nums, 0);
+        backtrack(nums);
         return res;
     }
 
-    private void backtrack(int[] nums, int index) {
+    private void backtrack(int[] nums) {
         if (path.size() == nums.length) {
-            res.add(new ArrayList<>(path));
+            res.add(new LinkedList<>(path));
+            return;
         }
+
+        Set<Integer> seen = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
-            if (used[i] || (i > 0 && nums[i] == nums[i-1] && !used[i-1])) {
+            if (seen.contains(nums[i]) || used[i]) {
                 continue;
             }
+            seen.add(nums[i]);
             used[i] = true;
             path.add(nums[i]);
-            backtrack(nums, index + 1);
+            backtrack(nums);
             path.remove(path.size() - 1);
             used[i] = false;
         }
