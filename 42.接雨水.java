@@ -7,27 +7,26 @@
 
 // @lc code=start
 class Solution {
+
     public int trap(int[] height) {
-        int res = 0;
         int left = 0, right = height.length - 1;
-        int maxLeft = height[0], maxRight = height[right];
-        while (left < right) {
+        int maxLeft = height[left], maxRight = height[right];
+        int sum = 0;
+        while (left <= right) {
             maxLeft = Math.max(maxLeft, height[left]);
             maxRight = Math.max(maxRight, height[right]);
             if (maxLeft < maxRight) {
-                res += maxLeft - height[left];
+                sum += maxLeft - height[left];
                 left++;
             } else {
-                res += maxRight - height[right];
+                sum += maxRight - height[right];
                 right--;
             }
         }
-        return res;
+        return sum;
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -39,4 +38,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

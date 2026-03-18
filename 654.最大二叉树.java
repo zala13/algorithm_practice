@@ -23,7 +23,25 @@
  */
 class Solution {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return helper(nums, 0, nums.length - 1);
+    }
 
+    private TreeNode helper(int[] nums, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int maxVal = nums[start];
+        int maxIdx = start;
+        for (int i = start; i <= end; i++) {
+            if (nums[i] > maxVal) {
+                maxVal = nums[i];
+                maxIdx = i;
+            }
+        }
+        TreeNode node = new TreeNode(maxVal);
+        node.left = helper(nums, start, maxIdx - 1);
+        node.right = helper(nums, maxIdx + 1, end);
+        return node;
     }
 }
 // @lc code=end

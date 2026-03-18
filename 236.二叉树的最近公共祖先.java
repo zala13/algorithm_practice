@@ -16,35 +16,35 @@
  * }
  */
 class Solution {
+
     TreeNode res = null;
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) {
-            return null;
-        }
         helper(root, p, q);
         return res;
     }
 
     private int helper(TreeNode node, TreeNode p, TreeNode q) {
         if (res != null) {
-            return 3;
+            return 0;
         }
         if (node == null) {
             return 0;
         }
-
         int left = helper(node.left, p, q);
         int right = helper(node.right, p, q);
-        int flag = left + right + (node == p || node == q ? 1 : 0);
-        if (flag == 2 && res == null) {
-            res = node;
+        int sum = left + right;
+        if (node.val == p.val || node.val == q.val) {
+            sum++;
         }
-        return Math.min(flag, 2);
+        if (sum == 2) {
+            res = node;
+            return 0;
+        }
+        return sum;
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -60,4 +60,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

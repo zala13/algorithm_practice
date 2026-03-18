@@ -22,34 +22,25 @@
  * }
  */
 class Solution {
+
     public int countNodes(TreeNode root) {
-        if (root == null) {
-            return 0;
+        TreeNode l = root, r = root;
+        int hl = 0, hr = 0;
+        while (l != null) {
+            l = l.left;
+            hl++;
         }
-        int res = 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while (!q.isEmpty()) {
-            int sz = q.size();
-            for (int i = 0; i < sz; i++) {
-                TreeNode node = q.poll();                
-                res++;
-                System.out.print(node.val + " ");
-                if (node.left != null) {
-                    q.offer(node.left);
-                }
-                if (node.right != null) {
-                    q.offer(node.right);
-                }
-            }
-            System.out.println();
+        while (r != null) {
+            r = r.right;
+            hr++;
         }
-        return res;
+        if (hl == hr) {
+            return (int) Math.pow(2, hl) - 1;
+        }
+        return 1 + countNodes(root.left) + countNodes(root.right);
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -65,4 +56,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

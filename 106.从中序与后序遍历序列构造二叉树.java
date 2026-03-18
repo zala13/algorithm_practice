@@ -9,53 +9,52 @@
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
 class Solution {
-    int post, in;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         post = postorder.length - 1;
         in = inorder.length - 1;
-        return build(inorder, postorder, Integer.MAX_VALUE);
+        return helper(inorder, postorder, Integer.MAX_VALUE);
     }
 
-    private TreeNode build(int[] inorder, int[] postorder, int stop) {
+    int in, post;
+
+    private TreeNode helper(int[] inorder, int[] postorder, int stop_val) {
         if (post < 0) {
             return null;
         }
-        if (inorder[in] == stop) {
+        if (stop_val == inorder[in]) {
             in--;
             return null;
         }
-        TreeNode node = new TreeNode(postorder[post]);
+        int root_val = postorder[post];
         post--;
-        node.right = build(inorder, postorder, node.val);
-        node.left = build(inorder, postorder, stop);
+        TreeNode node = new TreeNode(root_val);
+        node.right = helper(inorder, postorder, root_val);
+        node.left = helper(inorder, postorder, stop_val);
         return node;
     }
 }
 // @lc code=end
 
-
-
 /*
-// @lcpr case=start
-// [9,3,15,20,7]\n[9,15,7,20,3]\n
-// @lcpr case=end
-
-// @lcpr case=start
-// [-1]\n[-1]\n
-// @lcpr case=end
-
+ * // @lcpr case=start
+ * // [9,3,15,20,7]\n[9,15,7,20,3]\n
+ * // @lcpr case=end
+ * 
+ * // @lcpr case=start
+ * // [-1]\n[-1]\n
+ * // @lcpr case=end
+ * 
  */
-

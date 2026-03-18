@@ -7,13 +7,23 @@
 
 // @lc code=start
 class Solution {
+
     public int maxArea(int[] height) {
-        
+        int left = 0, right = height.length - 1;
+        int max = (right - left) * Math.min(height[left], height[right]);
+        while (left < right) {
+            int curArea = (right - left) * Math.min(height[left], height[right]);
+            max = Math.max(curArea, max);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return max;
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -21,4 +31,3 @@ class Solution {
 // @lcpr case=end
 
  */
-
