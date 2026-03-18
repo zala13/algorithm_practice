@@ -1,3 +1,6 @@
+
+import javax.swing.tree.TreeNode;
+
 /*
  * @lc app=leetcode.cn id=114 lang=java
  * @lcpr version=30305
@@ -23,23 +26,19 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        flat(root);
-    }
-
-    private TreeNode flat(TreeNode node) {
-        if (node == null) {
-            return null;
+        if (root == null) {
+            return;
         }
-        TreeNode left = flat(node.left);
-        TreeNode right = flat(node.right);
-        node.right = left;
-        node.left = null;
-        TreeNode p = node;
-        while (p.right != null) {
-            p = p.right;
+        TreeNode right = root.right, left = root.left;
+        flatten(left);
+        flatten(right);
+        root.right = left;
+        root.left = null;
+        TreeNode node = root;
+        while (node != null && node.right != null) {
+            node = node.right;
         }
-        p.right = right;
-        return node;
+        node.right = right;
     }
 }
 // @lc code=end

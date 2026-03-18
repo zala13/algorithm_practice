@@ -6,12 +6,10 @@
  */
 
 // @lc code=start
-
-import java.util.List;
-
 class Solution {
-    List<List<Integer>> res = new LinkedList<>();
-    List<Integer> path = new LinkedList<>();
+    private List<List<Integer>> res = new LinkedList<>();
+    private List<Integer> path = new LinkedList<>();
+
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         backtrack(nums, 0);
@@ -22,12 +20,14 @@ class Solution {
         if (index > nums.length) {
             return;
         }
-        res.add(new LinkedList(path));
+        res.add(new LinkedList<>(path));
+        Set<Integer> seen = new HashSet<>();
         for (int i = index; i < nums.length; i++) {
-            if (i > index && nums[i] == nums[i - 1]) {
+            if (seen.contains(nums[i])) {
                 continue;
             }
             path.add(nums[i]);
+            seen.add(nums[i]);
             backtrack(nums, i + 1);
             path.removeLast();
         }
@@ -35,16 +35,13 @@ class Solution {
 }
 // @lc code=end
 
-
-
 /*
-// @lcpr case=start
-// [1,2,2]\n
-// @lcpr case=end
-
-// @lcpr case=start
-// [0]\n
-// @lcpr case=end
-
+ * // @lcpr case=start
+ * // [1,2,2]\n
+ * // @lcpr case=end
+ * 
+ * // @lcpr case=start
+ * // [0]\n
+ * // @lcpr case=end
+ * 
  */
-

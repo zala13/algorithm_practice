@@ -1,20 +1,16 @@
 /*
- * @lc app=leetcode.cn id=51 lang=java
- * @lcpr version=30305
+ * @lc app=leetcode.cn id=52 lang=java
+ * @lcpr version=30400
  *
- * [51] N 皇后
+ * [52] N 皇后 II
  */
 
 // @lc code=start
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 class Solution {
-    private List<List<String>> res = new LinkedList<>();
+    // private List<List<String>> res = new LinkedList<>();
+    private int res = 0;
     private char[][] board; 
-    public List<List<String>> solveNQueens(int n) {
+    public int totalNQueens(int n) {
         board = new char[n][n];
         for (int i = 0; i < n; i++) {
             Arrays.fill(board[i], '.');
@@ -26,11 +22,12 @@ class Solution {
     private void backtrack(int n, int x) {
         if (x == n) {
             // 塞数据
-            List<String> path = new LinkedList<>();
-            for (char[] row : board) {
-                path.add(new String(row));
-            }
-            res.add(new LinkedList<>(path));
+            // List<String> path = new LinkedList<>();
+            // for (char[] row : board) {
+            //     path.add(new String(row));
+            // }
+            // res.add(new LinkedList<>(path));
+            res++;
         }
 
         for (int i = 0; i < n; i++) {        

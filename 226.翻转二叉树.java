@@ -1,3 +1,6 @@
+
+import javax.swing.tree.TreeNode;
+
 /*
  * @lc app=leetcode.cn id=226 lang=java
  * @lcpr version=30305
@@ -24,11 +27,11 @@
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) {
-            return root;
+            return null;
         }
-        TreeNode temp = root.right;
-        root.right = invertTree(root.left);
-        root.left = invertTree(temp);
+        TreeNode left = root.left, right = root.right;
+        root.right = invertTree(left);
+        root.left = invertTree(right);
         return root;
     }
 }
