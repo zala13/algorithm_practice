@@ -7,26 +7,24 @@
 
 // @lc code=start
 
-import java.util.HashMap;
+import java.util.Map;
 
 class Solution {
     public int subarraySum(int[] nums, int k) {
         int n = nums.length;
-        int[] preSum = new int[n + 1];
-        preSum[0] = 0;
-        HashMap<Integer, Integer> count = new HashMap<>();
-        count.put(0, 1);
-        int res = 0;
-        for (int i = 1; i <= n; i++) {
-            preSum[i] = preSum[i - 1] + nums[i - 1];
-            int need = preSum[i] - k;
-            if (count.containsKey(need)) {
-                res += count.get(need);
+        int preSum = 0;
+        Map<Integer, Integer> preSumToTimes = new HashMap<>();
+        preSumToTimes.put(0, 1);
+        int count = 0;
+        for (int num : nums) {
+            preSum += num;
+            int target = preSum - k;
+            if (preSumToTimes.containsKey(target)) {
+                count += preSumToTimes.get(target);
             }
-            count.put(preSum[i], count.getOrDefault(preSum[i], 0) + 1);
-            
+            preSumToTimes.put(preSum, preSumToTimes.getOrDefault(preSum, 0) + 1);
         }
-        return res;
+        return count;
     }
 }
 // @lc code=end
