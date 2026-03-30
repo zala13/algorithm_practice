@@ -28,20 +28,18 @@ class Solution {
     }
 
     int pre = 0, in = 0;
-
-    private TreeNode helper(int[] preorder, int[] inorder, int stop_val) {
+    private TreeNode helper(int[] preorder, int[] inorder, int stop) {
         if (pre >= preorder.length) {
             return null;
         }
-        if (stop_val == inorder[in]) {
+        if (stop == inorder[in]) {
             in++;
             return null;
         }
-        int root_val = preorder[pre];
+        TreeNode node = new TreeNode(preorder[pre]);
         pre++;
-        TreeNode node = new TreeNode(root_val);
-        node.left = helper(preorder, inorder, root_val);
-        node.right = helper(preorder, inorder, stop_val);
+        node.left = helper(preorder, inorder, node.val);
+        node.right = helper(preorder, inorder, stop);
         return node;
     }
 }

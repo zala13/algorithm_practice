@@ -29,7 +29,7 @@ class Solution {
         if (root == null) {
             return res;
         }
-        q.add(root);
+        q.offer(root);
         while (!q.isEmpty()) {
             int sz = q.size();
             List<Integer> path = new LinkedList<>();

@@ -16,9 +16,7 @@
  * }
  */
 class Solution {
-
     TreeNode res = null;
-
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         helper(root, p, q);
         return res;
@@ -31,15 +29,14 @@ class Solution {
         if (node == null) {
             return 0;
         }
+        int curr = (node == p || node == q) ? 1 : 0;
         int left = helper(node.left, p, q);
         int right = helper(node.right, p, q);
-        int sum = left + right;
-        if (node.val == p.val || node.val == q.val) {
-            sum++;
-        }
-        if (sum == 2) {
-            res = node;
-            return 0;
+        int sum = curr + left + right;
+        if (res == null) {
+            if (sum == 2) {
+                res = node;
+            }
         }
         return sum;
     }

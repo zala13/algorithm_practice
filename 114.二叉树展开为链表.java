@@ -1,6 +1,3 @@
-
-import javax.swing.tree.TreeNode;
-
 /*
  * @lc app=leetcode.cn id=114 lang=java
  * @lcpr version=30305
@@ -29,15 +26,16 @@ class Solution {
         if (root == null) {
             return;
         }
-        TreeNode right = root.right, left = root.left;
-        flatten(left);
-        flatten(right);
-        root.right = left;
+        TreeNode left = root.left;
+        TreeNode right = root.right;
         root.left = null;
+        flatten(left);
+        root.right = left;
         TreeNode node = root;
         while (node != null && node.right != null) {
             node = node.right;
         }
+        flatten(right);
         node.right = right;
     }
 }

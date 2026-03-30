@@ -24,25 +24,23 @@
 class Solution {
     private int res = 0, count = 0;
     public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stk = new Stack<>();
         if (root == null) {
             return -1;
         }
-        midtrack(root, k);
-        return res;
-    }
-
-    private void midtrack(TreeNode node, int k) {
-        if (node == null) {
-            return;
-        }
-        midtrack(node.left, k);
-        if (k > count) {
-            count++;
-            if (k == count) {
-                res = node.val;
+        while (!stk.isEmpty() || root != null) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
             }
+            root = stk.pop();
+            count++;
+            if (count == k) {
+                return root.val;
+            }
+            root = root.right;
         }
-        midtrack(node.right, k);
+        return -1;
     }
 }
 // @lc code=end

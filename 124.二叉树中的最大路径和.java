@@ -22,26 +22,8 @@
  * }
  */
 class Solution {
-    private int maxSum = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        findOneMaxSum(root);
-        return maxSum;
-    }
-
-    private int findOneMaxSum(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        int leftMaxSum = Math.max(0, findOneMaxSum(root.left));
-        int rightMaxSum = Math.max(0, findOneMaxSum(root.right));
-        int currSum = root.val + leftMaxSum + rightMaxSum;
-        maxSum = Math.max(currSum, maxSum);
-        return root.val + Math.max(leftMaxSum, rightMaxSum);
+        
     }
 }
 // @lc code=end

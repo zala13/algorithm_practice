@@ -27,21 +27,19 @@ class Solution {
         if (root == null) {
             return true;
         }
-        return isSame(root.left, root.right);
+        return isMirror(root.left, root.right);
     }
 
-    private boolean isSame(TreeNode left, TreeNode right) {
-        if ((left == null && right != null) 
-            || (left != null && right == null) ) {
-            return false;
-        }
+    private boolean isMirror(TreeNode left, TreeNode right) {
         if (left == null && right == null) {
             return true;
         }
-        if (left.val != right.val) {
-            return false;
+        if ((left != null && right == null) || 
+            (left == null && right != null) || 
+            (left.val != right.val)) {
+                return false;
         }
-        return isSame(left.left, right.right) && isSame(left.right, right.left);
+        return isMirror(left.left, right.right) && isMirror(left.right, right.left);
     }
 }
 // @lc code=end

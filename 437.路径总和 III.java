@@ -7,8 +7,6 @@
 
 // @lc code=start
 
-import java.util.HashMap;
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -25,31 +23,8 @@ import java.util.HashMap;
  * }
  */
 class Solution {
-    HashMap<Long, Integer> preSumCount = new HashMap<>();
-    long pathSum, targetSum;
-    int res = 0;
     public int pathSum(TreeNode root, int targetSum) {
-        if (root == null) {
-            return 0;
-        }
-        this.pathSum = 0;
-        this.targetSum = targetSum;
-        this.preSumCount.put(0L, 1);
-        traverse(root);
-        return res;
-    }
-
-    void traverse(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-        pathSum += root.val;
-        res += preSumCount.getOrDefault(pathSum - targetSum, 0);
-        preSumCount.put(pathSum, preSumCount.getOrDefault(pathSum, 0) + 1);
-        traverse(root.left);
-        traverse(root.right);
-        preSumCount.put(pathSum, preSumCount.get(pathSum) - 1);
-        pathSum -= root.val;
+        
     }
 }
 // @lc code=end

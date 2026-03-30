@@ -24,20 +24,18 @@
 class Solution {
     int maxLen = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        find(root);
+        helper(root);
         return maxLen;
     }
 
-    private int find(TreeNode node) {
+    private int helper(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        int left = find(node.left);
-        int right = find(node.right);
-        int currLen = right + left;
-        System.out.println(node.val + ":" + right + " " + left);
-        maxLen = Math.max(currLen, maxLen);
-        return Math.max(left + 1, right + 1);
+        int leftLen = helper(node.left);
+        int rightLen = helper(node.right);
+        maxLen = Math.max(maxLen, leftLen + rightLen);
+        return Math.max(leftLen, rightLen) + 1;
     }
 }
 // @lc code=end

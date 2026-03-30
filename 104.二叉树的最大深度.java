@@ -27,15 +27,14 @@ class Solution {
         if (root == null) {
             return 0;
         }
-        int res = 0;
+        int max = 0;
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
         while (!q.isEmpty()) {
             int sz = q.size();
-            res++;
+            max++;
             for (int i = 0; i < sz; i++) {
                 TreeNode node = q.poll();
-                System.out.print(node.val + " ");
                 if (node.left != null) {
                     q.offer(node.left);
                 }
@@ -43,9 +42,8 @@ class Solution {
                     q.offer(node.right);
                 }
             }
-            System.out.println();
         }
-        return res;
+        return max;
     }
 }
 // @lc code=end

@@ -28,20 +28,20 @@ class Solution {
         if (root == null) {
             return res;
         }
-        Deque<TreeNode> dq = new LinkedList<>();
-        dq.addFirst(root);
-        while (!dq.isEmpty()) {
-            int sz = dq.size();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int sz = q.size();
             for (int i = 0; i < sz; i++) {
-                TreeNode node = dq.pop();
+                TreeNode node = q.poll();
+                if (i == sz - 1) {
+                    res.add(node.val);
+                }
                 if (node.left != null) {
-                    dq.addLast(node.left);
+                    q.offer(node.left);
                 }
                 if (node.right != null) {
-                    dq.addLast(node.right);
-                }
-                if (sz - 1 == i) {
-                    res.add(node.val);
+                    q.offer(node.right);
                 }
             }
         }
