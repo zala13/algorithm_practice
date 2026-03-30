@@ -8,25 +8,23 @@
 // @lc code=start
 class Solution {
     public int firstMissingPositive(int[] nums) {
-        // 0 - n-1 放 1 - n
-        // 即 i+1 == nums[i] || i == nums[i - 1]
-        for (int i = 0; i < nums.length; i++) {
-            // 目前知道 nums[i] 的值，
-            // 所以应该先把其放到下标为 nums[i] - 1 处
-            while (nums[i] > 0  // 当前值大于0，否则无需移动
-                && nums[i] - 1 < nums.length // 确保下标小于长度
-                && nums[nums[i] - 1] != nums[i] // 当前点需要置换
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            while (
+                nums[i] <= n && 
+                nums[i] >= 1  &&
+                nums[i] != i + 1 && 
+                nums[nums[i] - 1] != nums[i]
             ) {
                 swap(nums, i, nums[i] - 1);
             }
         }
-
-        for (int i = 0; i < nums.length; i++) {
-            if (i != nums[i] - 1) {
+        for (int i = 0; i < n; i++) {
+            if (nums[i] - 1 != i) {
                 return i + 1;
             }
         }
-        return nums.length + 1;
+        return n + 1;
     }
 
     private void swap(int[] nums, int idx1, int idx2) {
@@ -36,8 +34,6 @@ class Solution {
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -53,4 +49,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

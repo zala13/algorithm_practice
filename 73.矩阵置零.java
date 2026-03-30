@@ -6,28 +6,30 @@
  */
 
 // @lc code=start
-
-import java.util.Arrays;
-
 class Solution {
     public void setZeroes(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        boolean[][] visited = new boolean[m][n];
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[][] used = new boolean[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (!visited[i][j] && matrix[i][j] == 0) {
-                    visited[i][j] = true;
+                if (used[i][j]) {
+                    continue;
+                }
+                if (matrix[i][j] == 0) {
                     for (int x = 0; x < m; x++) {
-                        if (matrix[x][j] != 0) {
-                            matrix[x][j] = 0;
-                            visited[x][j] = true;
+                        if (matrix[x][j] == 0) {
+                            continue;
                         }
+                        matrix[x][j] = 0;
+                        used[x][j] = true;
                     }
                     for (int y = 0; y < n; y++) {
-                        if (matrix[i][y] != 0) {
-                            matrix[i][y] = 0;
-                            visited[i][y] = true;
+                        if (matrix[i][y] == 0) {
+                            continue;
                         }
+                        matrix[i][y] = 0;
+                        used[i][y] = true;
                     }
                 }
             }

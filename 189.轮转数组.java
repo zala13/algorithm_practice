@@ -7,19 +7,11 @@
 
 // @lc code=start
 class Solution {
+
     public void rotate(int[] nums, int k) {
         int n = nums.length;
         k %= n;
-        int left = 0, right = n - k - 1;
-        while (left < right) {
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-            left++;
-            right--;
-        }
-        left = n - k;
-        right = n - 1;
+        int left = 0, right = n - 1;
         while (left < right) {
             int temp = nums[left];
             nums[left] = nums[right];
@@ -28,6 +20,15 @@ class Solution {
             right--;
         }
         left = 0;
+        right = k - 1;
+        while (left < right) {
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+            left++;
+            right--;
+        }
+        left = k;
         right = n - 1;
         while (left < right) {
             int temp = nums[left];
@@ -36,12 +37,9 @@ class Solution {
             left++;
             right--;
         }
-        
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -53,4 +51,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

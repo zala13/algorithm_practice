@@ -19,22 +19,21 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        ListNode slow = head, fast = head;
-        do {
-            if (fast == null || fast.next == null) {
-                return null;
-            }
-            slow = slow.next;
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
-        } while (fast != slow);
-        System.out.println(slow.val + " " + fast.val);
-        slow = head;
-        while (slow != fast) {
             slow = slow.next;
-            fast = fast.next;
+            if (fast == slow) {
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return fast;
+            }
         }
-        System.out.println(slow.val + " " + fast.val);
-        return slow;
+        return null;
     }
 }
 // @lc code=end

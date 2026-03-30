@@ -7,36 +7,30 @@
 
 // @lc code=start
 
-import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<>();
-        int m = matrix.length, n = matrix[0].length;
-        int up = 0, down = m - 1, left = 0, right = n - 1;
-        while (up <= down || left <= right) {
-            // 在第 up 行遍历，关注左右
-            for (int x = left; x <= right && up <= down; x++) {
-                res.add(matrix[up][x]);
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0, right = n - 1;
+        int up = 0, down = m - 1;
+        List<Integer> res = new LinkedList<>();
+        while (up <= down && left <= right) {
+            for (int j = left; j <= right && up <= down; j++) {
+                res.add(matrix[up][j]);
             }
             up++;
-
-            // 在第 right 列进行遍历,关注上下
-            for (int y = up; y <= down && left <= right; y++) {
-                res.add(matrix[y][right]);
+            for (int i = up; i <= down && left <= right; i++) {
+                res.add(matrix[i][right]);
             }
             right--;
-
-            // 在第 up 行遍历，关注左右
-            for (int x = right; x >= left && up <= down; x--) {
-                res.add(matrix[down][x]);
+            for (int j = right; j >= left && up <= down; j--) {
+                res.add(matrix[down][j]);
             }
             down--;
-
-            // 在第 right 列进行遍历,关注上下
-            for (int y = down; y >= up && left <= right; y--) {
-                res.add(matrix[y][left]);
+            for (int i = down; i >= up && left <= right; i--) {
+                res.add(matrix[i][left]);
             }
             left++;
         }

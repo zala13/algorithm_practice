@@ -23,25 +23,26 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        HashMap<Node, Node> map = new HashMap<>();
+        HashMap<Node, Node> nodeToNewNode = new HashMap<>();
         Node node = head;
         while (node != null) {
-            if (!map.containsKey(node)) {
-                map.put(node, new Node(node.val));
+            if (nodeToNewNode.containsKey(node)) {
+                continue;
             }
+            nodeToNewNode.put(node, new Node(node.val));
             node = node.next;
         }
         node = head;
         while (node != null) {
             if (node.next != null) {
-                map.get(node).next = map.get(node.next);
+                nodeToNewNode.get(node).next = nodeToNewNode.get(node.next);
             }
             if (node.random != null) {
-                map.get(node).random = map.get(node.random);
+                nodeToNewNode.get(node).random = nodeToNewNode.get(node.random);
             }
             node = node.next;
         }
-        return map.get(head);
+        return nodeToNewNode.get(head);
     }
 }
 // @lc code=end

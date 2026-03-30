@@ -21,38 +21,39 @@ class Solution {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode slow = head, fast = head, prev = slow;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
         while (fast != null && fast.next != null) {
-            prev = slow;
             slow = slow.next;
             fast = fast.next.next;
         }
-        prev.next = null;
-
-        ListNode left = sortList(head);
-        ListNode right = sortList(slow);
-        return merge(left, right);
+        ListNode head2 = slow.next;
+        slow.next = null;
+        return mergeList(sortList(head), sortList(head2));
     }
 
-    private ListNode merge(ListNode node1, ListNode node2) {
-        ListNode dummy = new ListNode(-1);
-        ListNode curr = dummy;
-        while (node1 != null && node2 != null) {
-            int val1 = node1.val;
-            int val2 = node2.val;
-            if (val1 < val2) {
-                curr.next = node1;
-                node1 = node1.next;
-            } else {
-                curr.next = node2;
-                node2 = node2.next;
-            }
-            curr = curr.next;
+    private ListNode mergeList(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
         }
-        if (node1 != null) {
-            curr.next = node1;
-        } else {
-            curr.next = node2;
+        ListNode dummy = new ListNode(-1);
+        ListNode node = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                node.next = list1;
+                list1 = list1.next;
+            } else {
+                node.next = list2;
+                list2 = list2.next;
+            }
+            node = node.next;
+        }
+        if (list1 != null) {
+            node.next = list1;
+        } else if (list2 != null) {
+            node.next = list2;
         }
         return dummy.next;
     }

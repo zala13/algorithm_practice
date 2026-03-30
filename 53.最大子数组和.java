@@ -7,25 +7,25 @@
 
 // @lc code=start
 class Solution {
+
     public int maxSubArray(int[] nums) {
         int n = nums.length;
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
         int left = 0, right = 0;
-        int sum = 0, max = Integer.MIN_VALUE;
         while (right < n) {
-            sum += nums[right];
+            currSum += nums[right];
             right++;
-            max=  Math.max(max, sum);
-            while (sum < 0 && left < right) {
-                sum -= nums[left];
+            maxSum = Math.max(maxSum, currSum);
+            while (currSum < 0 && left < right) {
+                currSum -= nums[left];
                 left++;
             }
         }
-        return max;
+        return maxSum;
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -41,4 +41,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

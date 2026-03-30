@@ -7,27 +7,33 @@
 
 // @lc code=start
 class Solution {
+
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int[] preProduct = new int[n + 1];
-        preProduct[0] = 1;
-        int[] postProduct = new int[n + 1];
-        postProduct[n] = 1;
-        int[] res = new int[n];
-        for (int i = 0; i < n; i++) {
-            preProduct[i + 1] = preProduct[i] * nums[i];
-            postProduct[n - i - 1] = postProduct[n - i] * nums[n - i - 1];
+        int[] pre = new int[n];
+        pre[0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            pre[i] = pre[i - 1] * nums[i];
         }
-        for (int i = 0; i < n; i++) {
-            res[i] = preProduct[i] * postProduct[i + 1];
+        int[] post = new int[n];
+        post[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            post[i] = post[i + 1] * nums[i];
         }
-        return res;
-
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            int res = 1;
+            System.out.print(i + " ");
+            res *= i - 1 >= 0 ? pre[i - 1] : 1;
+            System.out.print(res + " ");
+            res *= i + 1 <= n - 1 ? post[i + 1] : 1;
+            System.out.println(res + " ");
+            result[i] = res;
+        }
+        return result;
     }
 }
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -39,4 +45,3 @@ class Solution {
 // @lcpr case=end
 
  */
-

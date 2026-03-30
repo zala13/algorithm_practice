@@ -21,35 +21,33 @@ class Solution {
         if (lists.length == 0) {
             return null;
         }
-        ListNode res = lists[0];
+        ListNode node = lists[0];
         for (int i = 1; i < lists.length; i++) {
-            res = mergeTwoLists(res, lists[i]);
+            node = mergeList(node, lists[i]);
         }
-        return res;        
+        return node;
     }
 
-    private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        if (list1 == null && list2 == null) {
-            return null;
+    private ListNode mergeList(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
         }
         ListNode dummy = new ListNode(-1);
-        ListNode curr = dummy;
+        ListNode node = dummy;
         while (list1 != null && list2 != null) {
-            int val1 = list1.val;
-            int val2 = list2.val;
-            if (val1 < val2) {
-                curr.next = new ListNode(val1);
+            if (list1.val < list2.val) {
+                node.next = list1;
                 list1 = list1.next;
             } else {
-                curr.next = new ListNode(val2);
+                node.next = list2;
                 list2 = list2.next;
             }
-            curr = curr.next;
+            node = node.next;
         }
         if (list1 != null) {
-            curr.next = list1;
-        } else if (list2 != null){
-            curr.next = list2;
+            node.next = list1;
+        } else if (list2 != null) {
+            node.next = list2;
         }
         return dummy.next;
     }
